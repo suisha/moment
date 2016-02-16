@@ -14,8 +14,12 @@ function createUnix (input) {
 
 function createInZone (input, format, locale, strict, offset) {
     if (arguments.length === 1) {
-        return local__createLocal.apply(null, arguments).parseZone();
+        return createLocal.apply(null, arguments).parseZone();
     }
+
+    var lastArg = arguments[arguments.length - 1];
+    var smallOffset = new RegExp(matchShortOffset);
+    var largeOffset = new RegExp(matchOffset);
 
     if (typeof lastArg === 'number') {
         var hours =  Math.floor(lastArg / 60);
@@ -31,7 +35,7 @@ function createInZone (input, format, locale, strict, offset) {
     var inputArg = [input];
     var otherArgs = Array.prototype.slice.call(arguments, 1, arguments.length - 1);
 
-    return local__createLocal.apply(null, inputArg.concat(otherArgs)).parseZone();
+    return createLocal.apply(null, arguments).parseZone();
 }
 
 export {
